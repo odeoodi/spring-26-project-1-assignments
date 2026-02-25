@@ -4,99 +4,71 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.example</groupId>
-        <artifactId>project-course-assignments</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-
-    <artifactId>OTP1_inclass_assignment</artifactId>
+    <groupId>org.example</groupId>
+    <artifactId>temperature</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>17</maven.compiler.release>
-        <junit.jupiter.version>5.10.0</junit.jupiter.version>
-        <javafx.version>20.0.1</javafx.version>
-        <jacoco.version>0.8.12</jacoco.version>
-        <surefire.version>3.5.1</surefire.version>
     </properties>
-
     <dependencies>
-        <!-- JavaFX -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-
-        <!-- Tests: keep JUnit 5 (recommended) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>${junit.jupiter.version}</version>
+            <version>5.11.1</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- If you truly need JUnit 4 tests, keep this. Otherwise you can delete it. -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.1</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
+        <finalName>speedcal</finalName>
         <plugins>
-            <!-- Compile with Java 17 -->
+            <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.13.0</version>
                 <configuration>
-                    <release>${maven.compiler.release}</release>
+                    <release>21</release>
                 </configuration>
             </plugin>
 
-            <!-- Run tests -->
+            <!-- Maven Jar Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${surefire.version}</version>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.4.1</version>
                 <configuration>
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
-                    <!-- enables JUnit 5 auto-detection -->
-                    <useModulePath>false</useModulePath>
+                    <archive>
+                        <manifest>
+                            <mainClass>TemperatureConverter</mainClass>
+                        </manifest>
+                    </archive>
                 </configuration>
             </plugin>
 
-            <!-- JaCoCo coverage -->
+            <!-- JaCoCo Code Coverage Plugin -->
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco.version}</version>
+                <version>0.8.12</version>
                 <executions>
                     <execution>
-                        <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
                     <execution>
                         <id>report</id>
-                        <phase>verify</phase>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
@@ -104,21 +76,17 @@
                 </executions>
             </plugin>
 
-            <!-- Build a jar with a Main-Class -->
+            <!-- Surefire Plugin for Running Tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.4.2</version>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.1</version>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <!-- IMPORTANT: if your class is in a package, use full name like org.example.TimeCal -->
-                            <mainClass>TimeCal</mainClass>
-                        </manifest>
-                    </archive>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>
