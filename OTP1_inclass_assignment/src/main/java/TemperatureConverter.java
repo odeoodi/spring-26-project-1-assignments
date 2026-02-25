@@ -15,4 +15,21 @@ public class TemperatureConverter {
 
         return (celsius >= 50 || celsius <= -40);
     }
+
+    public double celsiusToKelvin(double celsius) {
+
+        return celsius + 273.15;
+    }
+
+    public double kelvinToCelsius(double kelvin) {
+        return kelvin - 273.15;
+    }
+
+    //public static void main(String[] args) {
+  //      TemperatureConverter converter = new TemperatureConverter();
+    //    System.out.println(converter.fahrenheitToCelsius(32));
+      //  System.out.println(converter.celsiusToFahrenheit(90));
+
+
+    //}
 }
