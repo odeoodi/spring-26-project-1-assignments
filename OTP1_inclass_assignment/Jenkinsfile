@@ -9,6 +9,7 @@ pipeline {
         DOCKERHUB_CREDENTIALS_ID = 'docker_hub'
         DOCKERHUB_REPO = 'odeoodi/converter_app'
         DOCKER_IMAGE_TAG = 'latest'
+        MODULE_DIR = 'OTP1_inclass_assignment'
     }
 
 
@@ -47,24 +48,26 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh '''
-      export PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
-      docker version
-      docker build -t ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG} .
-    '''
+                sh """
+          export PATH="/usr/local/bin:/opt/homebrew/bin:\$PATH"
+          docker version
+          docker build -t ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG} ${MODULE_DIR}
+        """
             }
         }
 
         stage('Push Docker Image to Docker Hub') {
             steps {
-                withCredentials([usernamePassword(credentialsId: DOCKERHUB_CREDENTIALS_ID,
+                withCredentials([usernamePassword(
+                        credentialsId: DOCKERHUB_CREDENTIALS_ID,
                         usernameVariable: 'DOCKER_USER',
-                        passwordVariable: 'DOCKER_PASS')]) {
-                    sh '''
-        export PATH="/usr/local/bin:/opt/homebrew/bin:$PATH"
-        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-        docker push ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}
-      '''
+                        passwordVariable: 'DOCKER_PASS'
+                )]) {
+                    sh """
+            export PATH="/usr/local/bin:/opt/homebrew/bin:\$PATH"
+            echo "\$DOCKER_PASS" | docker login -u "\$DOCKER_USER" --password-stdin
+            docker push ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}
+          """
                 }
             }
 
