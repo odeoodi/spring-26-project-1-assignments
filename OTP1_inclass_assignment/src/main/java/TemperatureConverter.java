@@ -27,8 +27,16 @@ public class TemperatureConverter {
 
     public static void main(String[] args) {
         TemperatureConverter converter = new TemperatureConverter();
-        System.out.println(converter.fahrenheitToCelsius(32));
-        System.out.println(converter.celsiusToFahrenheit(90));
+        double f1  = converter.fahrenheitToCelsius(32);
+        double c1 = converter.celsiusToFahrenheit(90);
+        double f2  = converter.fahrenheitToCelsius(123);
+        double c2 = converter.celsiusToFahrenheit(20);
+
+
+        System.out.println("Converting 32 Fahrenheit to Celsius: " + f1);
+        System.out.println("Converting 90 Celsius to Fahrenheit: " + c1);
+        System.out.println("Converting 123 Fahrenheit to Celsius: " + f2);
+        System.out.println("Converting 20 Celsius to Fahrenheit: " + c2);
 
 
     }
