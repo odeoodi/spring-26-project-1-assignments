@@ -25,11 +25,11 @@ public class TemperatureConverter {
         return kelvin - 273.15;
     }
 
-    //public static void main(String[] args) {
-  //      TemperatureConverter converter = new TemperatureConverter();
-    //    System.out.println(converter.fahrenheitToCelsius(32));
-      //  System.out.println(converter.celsiusToFahrenheit(90));
+    public static void main(String[] args) {
+        TemperatureConverter converter = new TemperatureConverter();
+        System.out.println(converter.fahrenheitToCelsius(32));
+        System.out.println(converter.celsiusToFahrenheit(90));
 
 
-    //}
+    }
 }
